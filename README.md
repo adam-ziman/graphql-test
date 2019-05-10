@@ -1,28 +1,19 @@
-# The Movie Test, aka Cruise Strikes Back
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-![Cruisey](https://cdn1.thr.com/sites/default/files/imagecache/scale_crop_768_433/2017/06/risky_business_1983_05_-_h_2017.jpg)
+## Available Scripts
 
-## The Scenario
-John Johnson hosts a weekly movie event with his local Tom Cruise Fan club called "John Johnsons Cruisey Movie Monday". He's asked you to build a website where he can either search for a specific movie or display a list of Tom Cruise's movies for his audience to select from.
+In the project directory, you can run:
 
+### `npm start`
 
-## What we need you to do
-1. Read the above for what's needed
-2. Setup your react project. Feel free to pick the tools you'd want to use
-3. Build a search component that connects to https://112qaej5y9.execute-api.ap-southeast-2.amazonaws.com/dev/graphql and can either search for a specific movie or display a list to match the criteria above
-4. Push source code to this repo
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-### What we're looking for
-1. Ability to build a React component from scratch
-2. Integration with an API endpoint
-3. Ability to style the component (without Bootstrap) feel free to style it how you want
-4. Any cool things you feel like adding is a nice bonus
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
 
-### Tech details
-- GraphQL Endpoint: https://112qaej5y9.execute-api.ap-southeast-2.amazonaws.com/dev/graphql
-- GraphQL Playground: https://fireql.dev/?url=https://112qaej5y9.execute-api.ap-southeast-2.amazonaws.com/dev/graphql
-- Note: The MovieDB endpoint only allows 40 requests every 10 seconds 
+### `npm test`
 
----
+Launches the test runner in the interactive watch mode.<br>
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-This message will self destruct in Five seconds
