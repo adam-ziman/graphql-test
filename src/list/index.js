@@ -1,78 +1,83 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import PropTypes from 'prop-types';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
 import { withStyles } from '@material-ui/core/styles';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
-import Button from '@material-ui/core/Button';
-import CharacterModal from '../modal';
 import noImage from './image-not-found.png';
 
-const styles = (theme) => ({
+const styles = theme => ({
   root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
+    width: '100%',
     backgroundColor: theme.palette.background.paper,
   },
-  gridList: {
-    width: '100%',
+  inline: {
+    display: 'inline',
+  },
+  poster: {
+    width: 100,
     height: 'auto',
+    'border-radius': 0
   },
-  // had problems placeing this where i wanted it to go
-  tooltip: {
-    position: 'relative',
-    bottom: -50,
-  },
-  icon: {
-    color: 'rgba(255, 255, 255, 0.54)',
-  },
-  button: {
-    margin: theme.spacing.unit,
-  },
-  pagination: {
-    'text-align': 'centre'
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
   }
 });
 
-const MovieList = () => (
-  <Query
-    query={gql`
-      {
-      searchPeople(query: "tom cruise") {
-        name
-        appearsIn(limit: 50) {
-          ... on Movie {
-            id
-            title
-            releaseDate
-            overview
-            poster {
-              small
+const MovieList = (props) => {
+  const { classes, actor } = props;
+  
+  return (<Query
+      query={gql`
+        {
+          searchPeople(query: "${actor}") {
+            name
+            appearsIn(limit: 50) {
+              ... on Movie {
+                id
+                title
+                overview
+                poster {
+                  thumbnail
+                }
+              }
             }
           }
         }
-      }
-    }
-    `}
-  >
-    {({ loading, error, data }) => {
-      if (loading) return <p>Loading...</p>;
-      if (error) return <p>Error :(</p>;
-      const movies = data.searchPeople[0].appearsIn;
-      console.log(data)
+      `}
+    >
+      {({ loading, error, data }) => {
+        if (loading) return <p>Loading...</p>;
+        if (error) return <p>Error :(</p>;
+        const movies = data.searchPeople[0].appearsIn;
+        console.log(data)
 
-      return movies.map(({ id, title, overview, poster, releaseDate }) => (
-        <div key={id}>
-          <p>{`${title} by ${overview}`}</p>
-        </div>
-      ));
-    }}
-  </Query>
-);
-export default MovieList;
+        return (
+            <List className={classes.root}>
+              {movies.map(({ id, title, overview, poster }) => (
+                <ListItem key={id} alignItems='flex-start'>
+                  <ListItemAvatar>
+                    <Avatar className={classes.poster} alt={title} src={poster ? poster.thumbnail : noImage} />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={title}
+                    secondary={overview}
+                  />
+                </ListItem>
+              ))}
+            </List>
+        );
+      }}
+    </Query>);
+};
+
+MovieList.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+export default withStyles(styles)(MovieList);
