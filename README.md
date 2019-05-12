@@ -1,4 +1,4 @@
-## Innstall instructions
+## Install instructions
 
 You need to first clone the directory. Then in the project directory, you need to run `npm install` first and then you can run:
 
