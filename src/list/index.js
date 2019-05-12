@@ -56,7 +56,6 @@ const MovieList = (props) => {
         if (loading) return <p>Loading...</p>;
         if (error) return <p>Error :(</p>;
         const movies = data.searchPeople[0].appearsIn;
-        console.log(data)
 
         return (
             <List className={classes.root}>
